@@ -1,5 +1,5 @@
 {
-	"name": "pahanini/yii2-rest-doc",
+	"name": "drZloy/yii2-rest-doc",
 	"description": "A Yii2 tool to create slate index.md for you REST controllers.",
 	"keywords": ["yii2", "rest", "api", "doc", "slate"],
 	"homepage": "https://github.com/pahanini/yii2-rest-to-slate",
@@ -9,6 +9,10 @@
 		{
 			"name": "Pavel Tetyaev",
 			"email": "pahanini@gmail.com"
+		},
+		{
+			"name": "Ihor",
+			"email": "dffd@gmail.com"
 		}
 	],
 	"require": {
