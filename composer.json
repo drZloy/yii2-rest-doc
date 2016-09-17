@@ -6,6 +6,7 @@
 	"type": "yii2-extension",
 	"license": "BSD-3-Clause",
 	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"authors": [
 		{
 			"name": "Pavel Tetyaev",
