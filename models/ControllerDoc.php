@@ -30,7 +30,7 @@ class ControllerDoc extends Doc
     /**
      * @var
      */
-    public $query = [];
+    protected $query = [];
 
     /**
      * @var array Keeps attached labels.
@@ -64,6 +64,16 @@ class ControllerDoc extends Doc
     }
 
     /**
+     * @param $name string
+     * @return string
+     */
+    public function getQuery($name)
+    {
+        return isset($this->query[$name]) ? $this->query[$name] : [];
+    }
+
+
+    /**
      * @param $value
      * @return bool If label attached to doc
      */
@@ -83,7 +93,15 @@ class ControllerDoc extends Doc
             $this->_labels[$tag->getContent()] = true;
         }
 
-        $this->query = $this->getTagsByName('query');
+        $queries = $this->getTagsByName('query');
+
+        foreach(['GET', 'PUT', 'POST', 'DELETE'] as $action) {
+
+            $this->query[$action] = array_filter($queries, function($item) use($action) {
+                return $item->requestMethod === $action;
+            });
+
+        }
 
         if ($this->model) {
             $this->model->prepare();
