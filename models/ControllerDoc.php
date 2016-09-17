@@ -28,7 +28,7 @@ class ControllerDoc extends Doc
     public $path;
 
     /**
-     * @var
+     * @var \pahanini\restdoc\tags\QueryTag[]
      */
     protected $query = [];
 
@@ -93,6 +93,10 @@ class ControllerDoc extends Doc
             $this->_labels[$tag->getContent()] = true;
         }
 
+        if ($this->model) {
+            $this->model->prepare();
+        }
+
         $queries = $this->getTagsByName('query');
 
         foreach(['GET', 'PUT', 'POST', 'DELETE'] as $action) {
@@ -101,11 +105,22 @@ class ControllerDoc extends Doc
                 return $item->requestMethod === $action;
             });
 
+            if($this->model) {
+                $modelFields = $this->model->getFields();
+                foreach($this->query[$action] as $queryTag) {
+                    foreach($modelFields as $modelField) {
+                        if($queryTag->variableName === $modelField->getName()) {
+                            $queryTag->type = $modelField->getType();
+                            $queryTag->setDescription($modelField->getDescription());
+                            break;
+                        }
+                    }
+                }
+            }
+
         }
 
-        if ($this->model) {
-            $this->model->prepare();
-        }
+
     }
 
     /**

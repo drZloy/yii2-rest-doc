@@ -14,6 +14,8 @@ class QueryTag extends Tag
 
     public $isRequired = false;
 
+    public $type = null;
+
     /**
      * {@inheritdoc}
      */
