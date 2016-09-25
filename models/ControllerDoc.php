@@ -18,6 +18,11 @@ class ControllerDoc extends Doc
     public $actions;
 
     /**
+     * @var string[][] asides
+     */
+    public $asides;
+
+    /**
      * @var \pahanini\restdoc\models\ModelDoc
      */
     public $model;
@@ -72,6 +77,14 @@ class ControllerDoc extends Doc
         return isset($this->query[$name]) ? $this->query[$name] : [];
     }
 
+    /**
+     * @param $name string
+     * @return array|string
+     */
+    public function getAsides($name = '')
+    {
+        return !empty($name) ? (!empty($this->asides[$name]) ? $this->asides[$name] : []) : $this->asides;
+    }
 
     /**
      * @param $value
@@ -95,6 +108,13 @@ class ControllerDoc extends Doc
 
         if ($this->model) {
             $this->model->prepare();
+        }
+
+        foreach(['notice', 'warning', 'success'] as $item) {
+            $this->asides[$item] = array_map(
+                function($item) { return $item->getContent(); },
+                $this->getTagsByName($item)
+            );
         }
 
         $queries = $this->getTagsByName('query');

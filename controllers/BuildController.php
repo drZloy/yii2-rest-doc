@@ -42,6 +42,11 @@ class BuildController extends Controller
     public $template;
 
     /**
+     * @var string Base URL for API endpoints
+     */
+    public $baseURL;
+
+    /**
      * Run builder.
      */
     public function actionRun()
@@ -56,7 +61,10 @@ class BuildController extends Controller
         if ($this->sortProperty) {
             $context->sortControllers($this->sortProperty);
         }
-        $result = $this->renderPartial(Yii::getAlias($this->template), ['controllers' => $context->controllers]);
+        $result = $this->renderPartial(Yii::getAlias($this->template), [
+            'controllers' => $context->controllers,
+            'baseURL' => $this->baseURL
+        ]);
         if ($this->targetFile) {
             file_put_contents(Yii::getAlias($this->targetFile), $result);
         } else {

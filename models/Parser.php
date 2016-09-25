@@ -59,6 +59,9 @@ class Parser extends  Object
                 'label' => '\phpDocumentor\Reflection\DocBlock\Tag',
                 'extraField' => '\phpDocumentor\Reflection\DocBlock\Tag\ParamTag',
                 'extraLink' => '\phpDocumentor\Reflection\DocBlock\Tag\ParamTag',
+                'notice' => '\phpDocumentor\Reflection\DocBlock\Tag\ParamTag',
+                'warning' => '\phpDocumentor\Reflection\DocBlock\Tag\ParamTag',
+                'success' => '\phpDocumentor\Reflection\DocBlock\Tag\ParamTag',
             ];
             foreach ($mapping as $suffix => $class) {
                 $tagName = Doc::TAG_PREFIX .$suffix;
